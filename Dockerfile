@@ -41,7 +41,7 @@ RUN set -ex \
     fi \
     && python3.12 -m venv ${VIRTUAL_ENV} \
     && python3.12 -m pip install -U pip \
-    && python3.12 -m pip install --no-cache-dir -r /requirements/production.txt \
+    && python3.12 -m pip install --upgrade --no-cache-dir -r /requirements/production.txt \
     && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false $BUILD_DEPS \
     && rm -rf /var/lib/apt/lists/*
 

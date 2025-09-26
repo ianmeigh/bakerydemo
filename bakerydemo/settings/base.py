@@ -77,6 +77,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.sitemaps",
+    "wagtailmedia",
 ]
 
 MIDDLEWARE = [
@@ -253,3 +254,30 @@ if "CSP_DEFAULT_SRC" in os.environ:
         CSP_FRAME_SRC = os.environ.get("CSP_FRAME_SRC").split(",")
     if "CSP_REPORT_URI" in os.environ:
         CSP_REPORT_URI = os.environ.get("CSP_REPORT_URI")
+
+WAGTAILMEDIA = {
+    "MEDIA_MODEL": "wagtailmedia.Media",  # string, dotted-notation.
+    "MEDIA_FORM_BASE": "",  # string, dotted-notation. Defaults to an empty string
+    "AUDIO_EXTENSIONS": [
+        "aac",
+        "aiff",
+        "flac",
+        "m4a",
+        "m4b",
+        "mp3",
+        "ogg",
+        "wav",
+    ],  # list of extensions
+    "VIDEO_EXTENSIONS": [
+        "avi",
+        "h264",
+        "m4v",
+        "mkv",
+        "mov",
+        "mp4",
+        "mpeg",
+        "mpg",
+        "ogv",
+        "webm",
+    ],  # list of extensions
+}
