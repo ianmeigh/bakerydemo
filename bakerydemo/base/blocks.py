@@ -1,4 +1,6 @@
+from django.forms.utils import flatatt
 from django.utils.functional import cached_property
+from django.utils.html import format_html, format_html_join
 from wagtail.blocks import (
     CharBlock,
     ChoiceBlock,
@@ -10,6 +12,7 @@ from wagtail.blocks import (
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images import get_image_model
 from wagtail.images.blocks import ImageChooserBlock
+from wagtailmedia.blocks import AbstractMediaChooserBlock
 
 
 def get_image_api_representation(image):
@@ -124,6 +127,50 @@ class BlockQuote(StructBlock):
             "attribute_name": "Willie Wagtail",
         }
         description = "A quote with an optional attribution"
+
+
+class TestMediaBlock(AbstractMediaChooserBlock):
+    def render_basic(self, value, context=None):
+        original_value = value
+
+        if not value:
+            return ""
+
+        if rendition := value.renditions.first():
+            value = rendition
+
+        if value.type == "video":
+            player_code = """
+            <div>
+                <video width="{1}" height="{2}" controls>
+                    {0}
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            """
+        else:
+            player_code = """
+            <div>
+                <audio controls>
+                    {0}
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+            """
+
+        final_value = value
+
+        # DEBUG
+        print(f"DEBUG: Original: {original_value}, Final: {final_value}")  # noqa: T201
+
+        return format_html(
+            player_code,
+            format_html_join(
+                "\n", "<source{0}>", [[flatatt(s)] for s in value.sources]
+            ),
+            value.width,
+            value.height,
+        )
 
 
 # StreamBlocks

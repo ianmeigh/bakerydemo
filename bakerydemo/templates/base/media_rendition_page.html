@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load wagtailimages_tags wagtailcore_tags %}
+
+{% block content %}
+    {% if page.body %}
+        <div class="container-fluid streamfield">
+            <div class="row">
+                <div style="text-align: center;" class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 streamfield-column">
+                    {{ page.body }}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock content %}

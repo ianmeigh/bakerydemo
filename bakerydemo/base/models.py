@@ -36,7 +36,7 @@ from wagtail.models import (
 )
 from wagtail.search import index
 
-from .blocks import BaseStreamBlock
+from .blocks import BaseStreamBlock, TestMediaBlock
 
 # Allow filtering by collection
 Image.api_fields = [APIField("collection")]
@@ -546,6 +546,21 @@ class FormPage(AbstractEmailForm):
         APIField("image"),
         APIField("body"),
         APIField("thank_you_text"),
+    ]
+
+
+class MediaRenditionPage(Page):
+    body = StreamField(
+        [
+            ("media", TestMediaBlock(icon="media")),
+        ],
+        verbose_name="Home content block",
+        blank=True,
+        use_json_field=True,
+    )
+
+    content_panels = Page.content_panels + [
+        FieldPanel("body"),
     ]
 
 
