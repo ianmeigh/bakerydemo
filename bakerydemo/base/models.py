@@ -552,9 +552,10 @@ class FormPage(AbstractEmailForm):
 class MediaRenditionPage(Page):
     body = StreamField(
         [
-            ("media", TestMediaBlock(icon="media")),
+            ("media", TestMediaBlock(allow_renditions=False, icon="media")),
+            ("media_rendition", TestMediaBlock(icon="media")),
         ],
-        verbose_name="Home content block",
+        verbose_name="Content block",
         blank=True,
         use_json_field=True,
     )
