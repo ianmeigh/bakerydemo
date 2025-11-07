@@ -179,6 +179,11 @@ LOGGING = {
             "handlers": ["console"],
             "level": os.getenv("DJANGO_LOG_LEVEL", "INFO"),
         },
+        "wagtailmedia": {
+            "handlers": ["console"],
+            "level": "DEBUG",  # See all wagtailmedia logs
+            "propagate": False,
+        },
     },
 }
 
