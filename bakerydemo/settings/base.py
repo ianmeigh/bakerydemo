@@ -258,7 +258,7 @@ if "CSP_DEFAULT_SRC" in os.environ:
 WAGTAILMEDIA = {
     "MEDIA_MODEL": "wagtailmedia.Media",  # string, dotted-notation.
     "MEDIA_FORM_BASE": "",  # string, dotted-notation. Defaults to an empty string
-    "TRANSCODING_BACKEND": "wagtailmedia.transcoding_backends.aws.EMCTranscodingBackend",
+    "TRANSCODING_BACKEND": "wagtailmedia.transcoding_backends.aws.backend.EMCTranscodingBackend",
     "AUDIO_EXTENSIONS": [
         "aac",
         "aiff",
@@ -281,13 +281,9 @@ WAGTAILMEDIA = {
         "ogv",
         "webm",
     ],  # list of extensions
-    "WEBHOOK_API_KEY": os.environ.get("WEBHOOK_API_KEY", ""),
 }
-
-AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID", "")
-AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY", "")
-AWS_DEFAULT_REGION = os.environ.get("AWS_DEFAULT_REGION", "eu-west-2")
 
 AWS_STORAGE_BUCKET_NAME = os.environ.get("AWS_STORAGE_BUCKET_NAME", "")
 AWS_MEDIACONVERT_ROLE_NAME = os.environ.get("AWS_MEDIACONVERT_ROLE_NAME")
 AWS_MEDIACONVERT_QUEUE_NAME = os.environ.get("AWS_MEDIACONVERT_QUEUE_NAME")
+AWS_WEBHOOK_API_KEY = os.environ.get("AWS_WEBHOOK_API_KEY", "")
