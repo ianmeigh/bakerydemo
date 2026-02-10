@@ -128,9 +128,14 @@ class BlockQuote(StructBlock):
 
 
 class TestMediaBlock(VideoChooserBlock):
+    def __init__(self, required=True, help_text=None, validators=(), **kwargs):
+        self.allow_renditions = kwargs.pop("allow_renditions", True)
+        super().__init__(required, help_text, validators, **kwargs)
+
     def render_basic(self, value, context=None):
         if value and (rendition := value.renditions.first()):
-            value = rendition
+            if self.allow_renditions:
+                value = rendition
         return super().render_basic(value, context)
 
 
