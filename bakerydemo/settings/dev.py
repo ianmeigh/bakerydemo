@@ -9,6 +9,13 @@ WAGTAILADMIN_BASE_URL = "http://localhost:8000"
 
 ALLOWED_HOSTS = ["*"]
 
+# Django Tasks - run synchronously in development
+TASKS = {
+    "default": {
+        "BACKEND": "django_tasks.backends.immediate.ImmediateBackend",
+    }
+}
+
 try:
     from .local import *  # noqa
 except ImportError:

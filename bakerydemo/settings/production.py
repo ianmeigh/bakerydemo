@@ -156,6 +156,17 @@ if "AWS_STORAGE_BUCKET_NAME" in os.environ:
         AWS_S3_CUSTOM_DOMAIN = os.environ["AWS_S3_CUSTOM_DOMAIN"]
     if "AWS_S3_REGION_NAME" in os.environ:
         AWS_S3_REGION_NAME = os.environ["AWS_S3_REGION_NAME"]
+else:
+    # Using local media storage (suitable for staging/testing only)
+    # WARNING: On Heroku, uploaded files are ephemeral and will be lost on dyno restart
+    print("INFO: Using local filesystem for media storage")  # noqa: T201
+
+# Django Tasks configuration for async background task processing
+TASKS = {
+    "default": {
+        "BACKEND": "django_tasks.backends.database.backend.DatabaseBackend",
+    }
+}
 
 if "GS_BUCKET_NAME" in os.environ:
     GS_BUCKET_NAME = os.getenv("GS_BUCKET_NAME")
