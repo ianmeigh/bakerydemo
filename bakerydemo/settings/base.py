@@ -258,7 +258,8 @@ if "CSP_DEFAULT_SRC" in os.environ:
 WAGTAILMEDIA = {
     "MEDIA_MODEL": "wagtailmedia.Media",  # string, dotted-notation.
     "MEDIA_FORM_BASE": "",  # string, dotted-notation. Defaults to an empty string
-    "TRANSCODING_BACKEND": "wagtailmedia.transcoding_backends.aws.backend.EMCTranscodingBackend",
+    "TRANSCODING_BACKEND": "wagtailmedia.transcoding_backends.aws.backend.AWSMediaConvertBackend",
+    "TRANSCODING_PROFILE": "bakerydemo/settings/transcoding_settings/my_test_settings.json",
     "AUDIO_EXTENSIONS": [
         "aac",
         "aiff",
@@ -283,7 +284,9 @@ WAGTAILMEDIA = {
     ],  # list of extensions
 }
 
-AWS_STORAGE_BUCKET_NAME = os.environ.get("AWS_STORAGE_BUCKET_NAME", "")
+AWS_MEDIACONVERT_STORAGE_BUCKET_NAME = os.environ.get(
+    "AWS_MEDIACONVERT_STORAGE_BUCKET_NAME", ""
+)
 AWS_MEDIACONVERT_ROLE_NAME = os.environ.get("AWS_MEDIACONVERT_ROLE_NAME")
 AWS_MEDIACONVERT_QUEUE_NAME = os.environ.get("AWS_MEDIACONVERT_QUEUE_NAME")
 AWS_WEBHOOK_API_KEY = os.environ.get("AWS_WEBHOOK_API_KEY", "")

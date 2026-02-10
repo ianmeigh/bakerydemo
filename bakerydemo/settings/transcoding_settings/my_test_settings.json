@@ -1,0 +1,71 @@
+{
+  "Category": "Test",
+  "Name": "Test Input Present",
+  "Settings": {
+    "TimecodeConfig": {
+      "Source": "ZEROBASED"
+    },
+    "OutputGroups": [
+      {
+        "Name": "File Group",
+        "Outputs": [
+          {
+            "ContainerSettings": {
+              "Container": "WEBM"
+            },
+            "VideoDescription": {
+              "Width": 250,
+              "Height": 250,
+              "CodecSettings": {
+                "Codec": "VP9",
+                "Vp9Settings": {
+                  "RateControlMode": "VBR",
+                  "Bitrate": 20000,
+                  "FramerateControl": "SPECIFIED",
+                  "FramerateNumerator": 15,
+                  "FramerateDenominator": 1,
+                  "ParControl": "SPECIFIED",
+                  "ParNumerator": 1,
+                  "ParDenominator": 1
+                }
+              }
+            },
+            "AudioDescriptions": [
+              {
+                "AudioSourceName": "Audio Selector 1",
+                "CodecSettings": {
+                  "Codec": "OPUS",
+                  "OpusSettings": {}
+                }
+              }
+            ]
+          }
+        ],
+        "OutputGroupSettings": {
+          "Type": "FILE_GROUP_SETTINGS",
+          "FileGroupSettings": {}
+        }
+      }
+    ],
+    "Inputs": [
+      {
+        "AudioSelectors": {
+          "Audio Selector 1": {
+            "DefaultSelection": "DEFAULT"
+          }
+        },
+        "VideoSelector": {
+          "ColorSpace": "FOLLOW",
+          "Rotate": "DEGREES_90"
+        },
+        "TimecodeSource": "ZEROBASED"
+      }
+    ]
+  },
+  "AccelerationSettings": {
+    "Mode": "DISABLED"
+  },
+  "StatusUpdateInterval": "SECONDS_60",
+  "Priority": 0,
+  "HopDestinations": []
+}
