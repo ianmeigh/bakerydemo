@@ -169,10 +169,39 @@ TASKS = {
 }
 
 if "GS_BUCKET_NAME" in os.environ:
+    import json
+
+    from google.oauth2 import service_account
+
     GS_BUCKET_NAME = os.getenv("GS_BUCKET_NAME")
     GS_PROJECT_ID = os.getenv("GS_PROJECT_ID")
-    GS_DEFAULT_ACL = "publicRead"
-    GS_AUTO_CREATE_BUCKET = True
+    # Set to None for buckets with uniform bucket-level access enabled
+    GS_DEFAULT_ACL = None
+    GS_AUTO_CREATE_BUCKET = False
+
+    # Handle credentials from environment variable
+    # Option 1: JSON string directly in environment variable
+    credentials_json = os.getenv("GS_CREDENTIALS", "").strip()
+    if credentials_json:
+        try:
+            credentials_dict = json.loads(credentials_json)
+            GS_CREDENTIALS = service_account.Credentials.from_service_account_info(
+                credentials_dict
+            )
+        except json.JSONDecodeError as e:
+            raise ValueError(
+                f"GS_CREDENTIALS environment variable contains invalid JSON: {e}. "
+                "Please ensure the JSON is properly formatted and escaped."
+            )
+    # Option 2: Path to JSON file (for local development)
+    elif "GOOGLE_APPLICATION_CREDENTIALS" in os.environ:
+        credentials_path = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
+        GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
+            credentials_path
+        )
+    # Option 3: Use Application Default Credentials (when running on GCP)
+    else:
+        GS_CREDENTIALS = None  # Will use ADC
 
     INSTALLED_APPS.append("storages")
     STORAGES["default"]["BACKEND"] = "storages.backends.gcloud.GoogleCloudStorage"
