@@ -178,6 +178,7 @@ if "GS_BUCKET_NAME" in os.environ:
     # Set to None for buckets with uniform bucket-level access enabled
     GS_DEFAULT_ACL = None
     GS_AUTO_CREATE_BUCKET = False
+    GS_FILE_OVERWRITE = False
 
     # Handle credentials from environment variable
     # Option 1: JSON string directly in environment variable
